@@ -1,15 +1,12 @@
 package com.example.googlemaps.ui.theme
 
-import android.widget.Button
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Button
 import androidx.compose.material3.Surface
-
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.navigation.NavController
@@ -18,7 +15,6 @@ import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
-import com.google.mlkit.vision.text.Text
 
 @Composable
 fun MapScreen(navController: NavController) {
@@ -29,7 +25,7 @@ fun MapScreen(navController: NavController) {
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
-        // MapView para mostrar el mapa
+        // MapView to show the map
         Box(
             modifier = Modifier
                 .weight(1f)
@@ -40,38 +36,35 @@ fun MapScreen(navController: NavController) {
             }
         }
 
+        val buttonColor = Color.Blue // Define your color here
+
         Surface(
             modifier = Modifier
                 .size(64.dp)
-                .clip(CircleShape)
                 .align(Alignment.CenterHorizontally),
-            color = MaterialTheme.colors.secondary,
-            contentColor = MaterialTheme.colors.onSecondary,
-            elevation = 4.dp
+            color = buttonColor,
+            contentColor = Color.White
         ) {
-            Button(
-                onClick = {
-                    val currentMap = mapa
-                    if (currentMap != null) {
-                        val currentLatLng = currentMap.cameraPosition.target
-                        marker?.remove() // Eliminar marcador anterior si existe
-                        marker = currentMap.addMarker(
-                            MarkerOptions()
-                                .position(LatLng(currentLatLng.latitude, currentLatLng.longitude))
-                                .title("Nuevo marcador")
-                        )
-                    }
-                },
+            Button(onClick = {
+                val currentMap = mapa
+                if (currentMap != null) {
+                    val currentLatLng = currentMap.cameraPosition.target
+                    marker?.remove()
+                    marker = currentMap.addMarker(
+                        MarkerOptions()
+                            .position(LatLng(currentLatLng.latitude, currentLatLng.longitude))
+                            .title("New marker")
+                    )
+                }
+            },
                 modifier = Modifier.fillMaxSize(),
-                shape = CircleShape
-            ) {
-                Text(text = "+", modifier = Modifier.padding(8.dp))
+            )
+        {
+
             }
         }
     }
 }
-
-
 
 @Composable
 fun MapViewContainer(

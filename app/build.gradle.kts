@@ -1,11 +1,9 @@
 plugins {
     id("org.jetbrains.kotlin.android")
 
-        id("com.android.application")
+    id("com.android.application")
 
-        // Add the Google services Gradle plugin
-
-        id("com.google.gms.google-services")
+    id("com.google.gms.google-services")
 
 }
 
